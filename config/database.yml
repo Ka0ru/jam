@@ -1,0 +1,10 @@
+# SQLite version 3.x
+#   gem install mysql2
+#
+#   Ensure the mysql2 gem is defined in your Gemfile
+#   gem 'mysql2'
+development:
+  adapter: mysql2
+  database: db/development.mysql2
+  pool: 5
+  timeout: 5000

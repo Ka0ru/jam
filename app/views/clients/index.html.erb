@@ -1,0 +1,15 @@
+<h1>Clients list (clients#index)</h1>
+<p>Find me in app/views/clients/index.html.erb</p>
+
+
+<ul>
+	<%= @clients.each do |client| %>
+		<li>
+			<%= link_to client.name, client_url(client) %>
+
+			<%= link_to 'Edit', edit_client_url(client) %>
+
+			<%= link_to 'Delete client', client_url(client), :confirm => 'Are you sure ?', :method => :delete %>
+		</li>
+	<% end %>
+</ul>

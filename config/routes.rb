@@ -1,4 +1,9 @@
 Jam::Application.routes.draw do
+
+  # get "products/index"
+  root 'products#index'
+  resources :products, :clients, :ingredients, :orders
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

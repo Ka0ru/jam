@@ -1,18 +1,20 @@
-<h1>Products list</h1>
-<!-- <p>Find me in app/views/products/index.html.erb</p> -->
+<h2>Products list</h2>
 
 <% if user_signed_in? %>
-	<ul>
-		<%= @products.each do |product| %>
-			<li>
-				<%= link_to product.name, product_url(product) %>
-
-				<%= link_to 'Edit', edit_product_url(product) %>
-
-				<%= link_to 'Delete product', product_url(product), :confirm => 'Are you sure ?', :method => :delete %> <br />
-
-				Price : <%= product.price %>€
-			</li>
-		<% end %>
-	</ul>
+	<p><a href="/products/new">Create new product</a></p>
 <% end %>
+
+<ul class="list">
+	<%= @products.each do |product| %>
+	<li>
+		<div class="name"><%= link_to product.name, product_url(product) %></div>
+
+		<% if user_signed_in? %>
+			<%= link_to 'Edit', edit_product_url(product), :class => 'edit' %>
+			<%= link_to 'Delete', product_url(product), :confirm => 'Are you sure ?', :method => :delete, :class => 'del' %> <br />
+		<% end %>
+
+		Price : <%= product.price %>€
+	</li>
+	<% end %>
+</ul>

@@ -2,8 +2,8 @@
 <html>
 <head>
   <title>Jam</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
@@ -12,14 +12,18 @@
 	<nav class="navbar navbar-default" role="navigation">
 	  <div class="container-fluid">
 		<ul class="nav navbar-nav">
-			<li><a href="/products">Produits</a></li>
-			<li><a href="/products">Produits</a></li>
-			<li><a href="/products">Produits</a></li>
+			<% if user_signed_in? %>
+				<li><a href="/products">Produits</a></li>
+				<li><a href="/ingredients">Ingredients</a></li>
+				<li><a href="/clients">Clients</a></li>
+			<% else %>
+				<li><a href="/products">Produits</a></li>
+			<% end %>
 		</ul>
 	  </div><!-- /.container-fluid -->
 	</nav>
 
-	<div class="navbar-text pull-right">
+	<div class="navbar-text pull-right login">
 		<% if user_signed_in? %>
 		  Logged in as <strong><%= current_user.email %></strong>.
 		  <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |

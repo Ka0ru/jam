@@ -1,15 +1,18 @@
-<h1>Ingredients list (ingredients#index)</h1>
-<p>Find me in app/views/ingredients/index.html.erb</p>
+<h2>Ingredients list</h2>
 
+<% if user_signed_in? %>
+	<p><a href="/ingredients/new">Create new ingredient</a></p>
+<% end %>
 
-<ul>
+<ul class="list">
 	<%= @ingredients.each do |ingredient| %>
 		<li>
-			<%= link_to ingredient.name, ingredient_url(ingredient) %>
+			<div class="name"><%= link_to ingredient.name, ingredient_url(ingredient) %></div>
 
-			<%= link_to 'Edit', edit_ingredient_url(ingredient) %>
-
-			<%= link_to 'Delete ingredient', ingredient_url(ingredient), :confirm => 'Are you sure ?', :method => :delete %> <br />
+			<% if user_signed_in? %>
+			<%= link_to 'Edit', edit_ingredient_url(ingredient), :class => 'edit' %>
+			<%= link_to 'Delete', ingredient_url(ingredient), :confirm => 'Are you sure ?', :method => :delete, :class => 'del' %> <br />
+			<% end %>
 
 			Price : <%= ingredient.price %>€
 		</li>

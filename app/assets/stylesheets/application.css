@@ -12,4 +12,28 @@
  *= require_tree .
  */
 
-body { padding-top: 60px; }
+body { margin: 0 50px; }
+
+.login{
+	position: absolute;
+	top: 0px;
+	right: 0px;
+}
+
+a.edit{
+	color: green;
+}
+a.del{
+	color: red;
+}
+
+ul.list{
+	list-style: none;
+}
+ul.list li{
+	margin: 25px;
+}
+.name{
+	font-size: 24px;
+	margin: 15px 0px;
+}

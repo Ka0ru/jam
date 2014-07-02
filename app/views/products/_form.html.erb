@@ -14,5 +14,13 @@
 	<%= f.label :description %>
 	<%= f.text_area :description %>
 
+	<% @ingredients.each do |ingredient| %>
+			<%= label_tag ingredient.name %>
+			<%= check_box_tag 'product[ingredient_ids][]', ingredient.id %>
+
+			<%= label_tag 'Quantity' %>
+			<%= number_field_tag :nb_ingredient, :nb_ingredient %>
+	<% end %>
+
 	<%= f.submit %>
 <% end %>

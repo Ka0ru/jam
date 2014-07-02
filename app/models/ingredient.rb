@@ -3,4 +3,5 @@ class Ingredient < ActiveRecord::Base
 	validates :price, presence: true
 
 	has_many :products_ingredients
+	has_many :products, :through => :products_ingredients
 end

@@ -5,17 +5,25 @@ class ProductsController < ApplicationController
 
 	def new
 	  	@product = Product.new
+	  	@ingredients = Ingredient.all
 	end
 
 	def create
+		@ingredients = Ingredient.all
   		@product = Product.new(product_params)
+
+  		p @product.products_ingredients
+  		p @product.ingredients
+
   		uploaded_io = params[:product][:photo]
+
   		if @product.save
 			File.open(Rails.root.join('public', 'uploads', @product.id.to_s()+'.jpg'), 'wb') do |file|
 				file.write(uploaded_io.read)
 			end
   			redirect_to @product
   		else
+  			p @product.errors
   			render "new"
   		end
 	end
@@ -31,7 +39,7 @@ class ProductsController < ApplicationController
 	def update
 		@product = Product.find(params[:id])
  	 	uploaded_io = params[:product][:photo]
-		if @product.update_attributes(params[:product].permit(:name, params[:id], :price, :margin, :description))
+		if @product.update_attributes(params[:product].permit(:name, :price, :margin, :description))
 			File.open(Rails.root.join('public', 'uploads', @product.id.to_s()+'.jpg'), 'wb') do |file|
 				file.write(uploaded_io.read)
 			end
@@ -54,7 +62,7 @@ class ProductsController < ApplicationController
 
 	private
 	  	def product_params
-	  		params.require(:product).permit(:name, :id, :price, :margin, :description)
+	  		params.require(:product).permit(:name, :price, :margin, :description, :nb_ingredient, :ingredient_ids => [])
 	  	end
 end
 

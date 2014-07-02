@@ -1,7 +1,8 @@
 class ProductsIngredient < ActiveRecord::Base
-	validates :id_product, presence: true
-	validates :id_ingredient, presence: true
-	validates :nb_ingredient, presence: true
+	#validates :product_id, presence: true
+	#validates :ingredient_id, presence: true
+	#validates :nb_ingredient, presence: true
 
-	belongs_to :product, :ingredient
+	belongs_to :product
+	belongs_to :ingredient
 end

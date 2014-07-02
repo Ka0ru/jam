@@ -42,3 +42,29 @@ ul.list li{
 	font-size: 24px;
 	margin: 15px 0px;
 }
+
+form .product_list:after{
+	content: '';
+	display: table;
+	clear: both;
+}
+
+form .product_list .product_item{
+	margin: 0 20px;
+	float: left;
+}
+
+/*form .product_list .product_item label{
+	margin-left: 10px;
+	float: left;
+}
+
+form .product_list .product_item input{
+	float: left;
+}
+
+form .product_list .product_item input:after{
+	content: '';
+	display: table;
+	clear: both;
+}*/

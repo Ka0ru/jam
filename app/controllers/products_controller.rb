@@ -19,12 +19,15 @@ class ProductsController < ApplicationController
   			p i.errors
   		end
 
-  # 		uploaded_io = params[:product][:photo]
-		# File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
-		# 	file.write(uploaded_io.read)
-		# end
+  		p @product.products_ingredients
+  		p @product.ingredients
+
+  		uploaded_io = params[:product][:photo]
 
   		if @product.save
+			File.open(Rails.root.join('public', 'uploads', @product.id.to_s()+'.jpg'), 'wb') do |file|
+				file.write(uploaded_io.read)
+			end
   			redirect_to @product
   		else
   			p @product.errors
@@ -42,7 +45,11 @@ class ProductsController < ApplicationController
 
 	def update
 		@product = Product.find(params[:id])
-		if @product.update_attributes(params[:product].permit(:name, params[:id], :price, :margin, :description))
+ 	 	uploaded_io = params[:product][:photo]
+		if @product.update_attributes(params[:product].permit(:name, :price, :margin, :description))
+			File.open(Rails.root.join('public', 'uploads', @product.id.to_s()+'.jpg'), 'wb') do |file|
+				file.write(uploaded_io.read)
+			end
 		  redirect_to products_url
 		else
 		  render "edit"

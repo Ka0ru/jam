@@ -1,14 +1,20 @@
 class OrdersController < ApplicationController
+	
 	def index
 		@orders = Order.all
 	end
 
 	def new
 	  	@order = Order.new
+	  	@products = Product.all
+	  	@clients = Client.all
 	end
 
 	def create
+		@products = Product.all
+		@clients = Client.all
   		@order = Order.new(order_params)
+
   		if @order.save
   			redirect_to @order
   		else

@@ -10,8 +10,8 @@
 			<div class="name"><%= link_to ingredient.name, ingredient_url(ingredient) %></div>
 
 			<% if user_signed_in? %>
-			<%= link_to 'Edit', edit_ingredient_url(ingredient), :class => 'edit' %>
-			<%= link_to 'Delete', ingredient_url(ingredient), :confirm => 'Are you sure ?', :method => :delete, :class => 'del' %> <br />
+				<%= link_to 'Edit', edit_ingredient_url(ingredient), :class => 'edit' %>
+				<%= link_to 'Delete', ingredient_url(ingredient), :confirm => 'Are you sure ?', :method => :delete, :class => 'del' %> <br />
 			<% end %>
 
 			Price : <%= ingredient.price %>€

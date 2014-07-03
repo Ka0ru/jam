@@ -1,0 +1,23 @@
+<%= form_for(@order) do |f| %>
+
+	<div class="product_list">
+		<% @products.each do |product| %>
+			<div class="product_item">
+				<%= label_tag product.name %>
+				<%= check_box_tag 'order[product_ids][]', product.id %>
+
+				<%= label_tag 'Quantity' %>
+				<%= number_field_tag :nb_product, :nb_product %>
+			</div>
+		<% end %>
+	</div>
+
+	<hr>
+
+	<% @clients.each do |client| %>
+		<%= label_tag client.name %>
+		<%= check_box_tag 'order[client_ids][]', client.id %>
+	<% end %>
+
+	<%= f.submit %>
+<% end %>

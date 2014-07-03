@@ -1,5 +1,8 @@
 <h2>Clients list</h2>
 
+<% if user_signed_in? %>
+	<p><a href="/clients/new">Create new clients</a></p>
+<% end %>
 
 <ul class="list">
 	<% @clients.each do |client| %>

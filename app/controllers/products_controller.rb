@@ -5,13 +5,20 @@ class ProductsController < ApplicationController
 
 	def new
 	  	@product = Product.new
+	  	@ingredients = Ingredient.all
 	end
 
 	def create
+		@ingredients = Ingredient.all
   		@product = Product.new(product_params)
+  		p @product.products_ingredients
+  		p @product.ingredients
+  		@quantity = ProductsIngredient.new(ingredient_nb)
   		if @product.save
+  			@quantity.save
   			redirect_to @product
   		else
+  			p @product.errors
   			render "new"
   		end
 	end
@@ -42,7 +49,11 @@ class ProductsController < ApplicationController
 
 	private
 	  	def product_params
-	  		params.require(:product).permit(:name, :photo, :price,:margin, :description)
+	  		params.require(:product).permit(:name, :photo, :price, :margin, :description, :nb_ingredient, :ingredient_ids => [])
+	  	end
+
+	  	def ingredient_nb
+	  		params.require(:product).permit(:nb_ingredient => [])
 	  	end
 end
 

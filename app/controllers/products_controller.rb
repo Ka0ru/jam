@@ -11,9 +11,16 @@ class ProductsController < ApplicationController
 	def create
 		@ingredients = Ingredient.all
   		@product = Product.new(product_params)
+
   		p @product.products_ingredients
   		p @product.ingredients
   		@quantity = ProductsIngredient.new(ingredient_nb)
+
+  		uploaded_io = params[:product][:photo]
+		File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
+			file.write(uploaded_io.read)
+		end
+
   		if @product.save
   			@quantity.save
   			redirect_to @product
@@ -33,7 +40,7 @@ class ProductsController < ApplicationController
 
 	def update
 		@product = Product.find(params[:id])
-		if @product.update_attributes(params[:product].permit(:name, :photo, :price, :margin, :description))
+		if @product.update_attributes(params[:product].permit(:name, params[:id], :price, :margin, :description))
 		  redirect_to products_url
 		else
 		  render "edit"
@@ -47,13 +54,13 @@ class ProductsController < ApplicationController
 		redirect_to products_url
 	end
 
+	def upload
+	  
+	end
+
 	private
 	  	def product_params
 	  		params.require(:product).permit(:name, :photo, :price, :margin, :description, :nb_ingredient, :ingredient_ids => [])
-	  	end
-
-	  	def ingredient_nb
-	  		params.require(:product).permit(:nb_ingredient => [])
 	  	end
 end
 

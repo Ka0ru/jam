@@ -2,7 +2,7 @@
 
 
 <ul class="list">
-	<%= @clients.each do |client| %>
+	<% @clients.each do |client| %>
 		<li>
 			<div class="name"><%= link_to client.name, client_url(client) %></div>
 

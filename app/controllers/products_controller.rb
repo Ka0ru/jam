@@ -11,18 +11,20 @@ class ProductsController < ApplicationController
 	def create
 		@ingredients = Ingredient.all
   		@product = Product.new(product_params)
+  		p params['products_ingredients']
+  		#@product.products_ingredients.build(params.require(:products_ingredients).permit(:nb_ingredient, :ingredient_id, :products_ingredients[:ingredient_ids]))
+  		@product.save
+  		params['products_ingredients'].each do |a|
+  			i = ProductsIngredient.create(a.last.merge(:product_id => @product.id))
+  			p i.errors
+  		end
 
-  		p @product.products_ingredients
-  		p @product.ingredients
-  		@quantity = ProductsIngredient.new(ingredient_nb)
-
-  		uploaded_io = params[:product][:photo]
-		File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
-			file.write(uploaded_io.read)
-		end
+  # 		uploaded_io = params[:product][:photo]
+		# File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
+		# 	file.write(uploaded_io.read)
+		# end
 
   		if @product.save
-  			@quantity.save
   			redirect_to @product
   		else
   			p @product.errors
@@ -60,7 +62,7 @@ class ProductsController < ApplicationController
 
 	private
 	  	def product_params
-	  		params.require(:product).permit(:name, :photo, :price, :margin, :description, :nb_ingredient, :ingredient_ids => [])
+	  		params.require(:product).permit(:name, :price, :margin, :description, :products_ingredients => [:nb_ingredient, :ingredient_id])
 	  	end
 end
 
